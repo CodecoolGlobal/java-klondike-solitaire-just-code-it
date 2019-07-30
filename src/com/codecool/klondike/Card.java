@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Card extends ImageView {
 
-    private int suit;
+    private Suit suit;
     private int rank;
     private boolean faceDown;
 
@@ -23,7 +23,7 @@ public class Card extends ImageView {
     public static final int WIDTH = 150;
     public static final int HEIGHT = 215;
 
-    public Card(int suit, int rank, boolean faceDown) {
+    public Card(Suit suit, int rank, boolean faceDown) {
         this.suit = suit;
         this.rank = rank;
         this.faceDown = faceDown;
@@ -34,7 +34,7 @@ public class Card extends ImageView {
         setEffect(dropShadow);
     }
 
-    public int getSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
@@ -47,7 +47,7 @@ public class Card extends ImageView {
     }
 
     public String getShortName() {
-        return "S" + suit + "R" + rank;
+        return "S" + suit.getId() + "R" + rank;
     }
 
     public DropShadow getDropShadow() {
@@ -74,7 +74,7 @@ public class Card extends ImageView {
 
     @Override
     public String toString() {
-        return "The " + "Rank" + rank + " of " + "Suit" + suit;
+        return "The " + "Rank" + rank + " of " + "Suit " + suit;
     }
 
     public static boolean isOppositeColor(Card card1, Card card2) {
@@ -88,7 +88,7 @@ public class Card extends ImageView {
 
     public static List<Card> createNewDeck() {
         List<Card> result = new ArrayList<>();
-        for (int suit = 1; suit < 5; suit++) {
+        for (Suit suit: Suit.values()) {
             for (int rank = 1; rank < 14; rank++) {
                 result.add(new Card(suit, rank, true));
             }
