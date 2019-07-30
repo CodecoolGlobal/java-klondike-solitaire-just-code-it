@@ -1,17 +1,19 @@
 package com.codecool.klondike;
 
 public enum Suit {
-    HEARTS("hearts", "black"),
-    DIAMONDS("diamonds", "black"),
-    SPADES("spades", "black"),
-    CLUBS("clubs", "black");
+    HEARTS("hearts", "red", 1),
+    DIAMONDS("diamonds", "red", 2),
+    SPADES("spades", "black", 3),
+    CLUBS("clubs", "black", 4);
 
-    public String suit;
-    public String color;
+    private String suit;
+    private String color;
+    private int id;
 
-    Suit(String suit, String color){
+    Suit(String suit, String color, int id){
         this.suit = suit;
         this.color = color;
+        this.id = id;
     }
 
     public String getSuit() {
@@ -20,5 +22,9 @@ public enum Suit {
 
     public String getColor() {
         return color;
+    }
+
+    public int getId(){
+        return id;
     }
 }
