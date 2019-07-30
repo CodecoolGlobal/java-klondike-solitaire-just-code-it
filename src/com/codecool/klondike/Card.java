@@ -10,7 +10,7 @@ import java.util.*;
 public class Card extends ImageView {
 
     private Suit suit;
-    private int rank;
+    private Rank rank;
     private boolean faceDown;
 
     private Image backFace;
@@ -23,7 +23,7 @@ public class Card extends ImageView {
     public static final int WIDTH = 150;
     public static final int HEIGHT = 215;
 
-    public Card(Suit suit, int rank, boolean faceDown) {
+    public Card(Suit suit, Rank rank, boolean faceDown) {
         this.suit = suit;
         this.rank = rank;
         this.faceDown = faceDown;
@@ -38,7 +38,7 @@ public class Card extends ImageView {
         return suit;
     }
 
-    public int getRank() {
+    public Rank getRank() {
         return rank;
     }
 
@@ -47,7 +47,7 @@ public class Card extends ImageView {
     }
 
     public String getShortName() {
-        return "S" + suit.getId() + "R" + rank;
+        return "S" + suit.getId() + "R" + rank.getId();
     }
 
     public DropShadow getDropShadow() {
@@ -89,7 +89,7 @@ public class Card extends ImageView {
     public static List<Card> createNewDeck() {
         List<Card> result = new ArrayList<>();
         for (Suit suit: Suit.values()) {
-            for (int rank = 1; rank < 14; rank++) {
+            for (Rank rank : Rank.values()) {
                 result.add(new Card(suit, rank, true));
             }
         }
@@ -102,9 +102,9 @@ public class Card extends ImageView {
         for (Suit s: Suit.values()) {
             String suitName = s.getSuit();
             int suitId = s.getId();
-            for (int rank = 1; rank < 14; rank++) {
-                String cardName = suitName + rank;
-                String cardId = "S" + suitId + "R" + rank;
+            for (Rank rank: Rank.values()) {
+                String cardName = suitName + rank.getId();
+                String cardId = "S" + suitId + "R" + rank.getId();
                 String imageFileName = "card_images/" + cardName + ".png";
                 cardFaceImages.put(cardId, new Image(imageFileName));
             }
