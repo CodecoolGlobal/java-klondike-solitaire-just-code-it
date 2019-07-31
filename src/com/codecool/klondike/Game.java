@@ -75,6 +75,17 @@ public class Game extends Pane {
         card.setTranslateY(offsetY);
     };
 
+
+    private void flipCard(Card card){
+        Pile containingPile = card.getContainingPile();
+        Card topCard = containingPile.getCards().get(containingPile.numOfCards()-2);
+        if (containingPile.getPileType().equals(Pile.PileType.TABLEAU)){
+            if(topCard.isFaceDown()){
+                topCard.flip();
+            }
+        }
+    }
+
     private EventHandler<MouseEvent> onMouseReleasedHandler = e -> {
         if (draggedCards.isEmpty())
             return;
@@ -83,9 +94,11 @@ public class Game extends Pane {
         Pile foundationPile = getValidIntersectingPile(card, foundationPiles);
         if (tableauPile != null) {
             handleValidMove(card, tableauPile);
+            flipCard(card);
         }
         else if (foundationPile != null){
             handleValidMove(card, foundationPile);
+            flipCard(card);
         }
         else {
             draggedCards.forEach(MouseUtil::slideBack);
