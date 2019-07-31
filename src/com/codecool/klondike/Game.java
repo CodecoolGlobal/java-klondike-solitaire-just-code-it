@@ -127,10 +127,10 @@ public class Game extends Pane {
          else {
             Card topCard = destPile.getTopCard();
             if (destPile.getPileType().equals(Pile.PileType.TABLEAU)) {
-                return (topCard.getSuit().getColor() != (card.getSuit().getColor()) && topCard.getRank().getId() - 1 == card.getRank().getId());
+                return (Card.isOppositeColor(topCard, card) && topCard.getRank().getId() - 1 == card.getRank().getId());
             }
             else if (destPile.getPileType().equals(Pile.PileType.FOUNDATION)){
-                    if (destPile.getTopCard().getSuit().equals(card.getSuit())) {
+                    if (Card.isSameSuit(topCard, card)) {
                         return destPile.getTopCard().getRank().getId() == (card.getRank().getId() - 1);
                     }
             }
