@@ -2,9 +2,12 @@ package com.codecool.klondike;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -169,6 +172,15 @@ public class Game extends Pane {
             return card.getBoundsInParent().intersects(pile.getTopCard().getBoundsInParent());
     }
 
+
+ /*   public void addButtonRestartHandler(Button restartButton){
+      restartButton.setOnAction(onButtonPressedHandler);
+    }
+
+    private EventHandler<ActionEvent> onButtonPressedHandler = e ->{
+
+    };
+*/
     private void handleValidMove(Card card, Pile destPile) {
         String msg = null;
         if (destPile.isEmpty()) {
@@ -192,6 +204,16 @@ public class Game extends Pane {
         stockPile.setLayoutY(20);
         stockPile.setOnMouseClicked(stockReverseCardsHandler);
         getChildren().add(stockPile);
+        Button restartButton = new Button("Restart");
+        restartButton.setTranslateX(100);
+        restartButton.setTranslateY(650);
+        getChildren().add(restartButton);
+        restartButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                Klondike game = new Klondike();
+                game.start(Klondike.stage);
+            }
+        });
 
         discardPile = new Pile(Pile.PileType.DISCARD, "Discard", STOCK_GAP);
         discardPile.setBlurredBackground();
