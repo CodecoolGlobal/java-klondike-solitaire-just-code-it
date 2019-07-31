@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -134,8 +135,8 @@ public class Game extends Pane {
             return card.getBoundsInParent().intersects(pile.getTopCard().getBoundsInParent());
     }
 
-/*
-    public void addButtonRestartHandler(Button restartButton){
+
+ /*   public void addButtonRestartHandler(Button restartButton){
       restartButton.setOnAction(onButtonPressedHandler);
     }
 
@@ -167,6 +168,8 @@ public class Game extends Pane {
         stockPile.setOnMouseClicked(stockReverseCardsHandler);
         getChildren().add(stockPile);
         Button restartButton = new Button("Restart");
+        restartButton.setTranslateX(1200);
+        restartButton.setTranslateY(650);
         getChildren().add(restartButton);
 
         discardPile = new Pile(Pile.PileType.DISCARD, "Discard", STOCK_GAP);
