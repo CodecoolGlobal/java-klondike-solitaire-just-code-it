@@ -83,6 +83,7 @@ public class Card extends ImageView {
     }
 
     public static boolean isSameSuit(Card card1, Card card2) {
+
         return card1.getSuit() == card2.getSuit();
     }
 
