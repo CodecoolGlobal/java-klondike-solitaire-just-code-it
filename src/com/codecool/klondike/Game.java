@@ -99,6 +99,7 @@ public class Game extends Pane {
         deck = Card.createNewDeck();
         initPiles();
         dealCards();
+        System.out.println("Done");
     }
 
     public void addMouseEventHandlers(Card card) {
@@ -171,6 +172,11 @@ public class Game extends Pane {
         restartButton.setTranslateX(1200);
         restartButton.setTranslateY(650);
         getChildren().add(restartButton);
+        restartButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                Game game = new Game();
+            }
+        });
 
         discardPile = new Pile(Pile.PileType.DISCARD, "Discard", STOCK_GAP);
         discardPile.setBlurredBackground();
