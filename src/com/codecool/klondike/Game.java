@@ -100,7 +100,6 @@ public class Game extends Pane {
         deck = Card.createNewDeck();
         initPiles();
         dealCards();
-        System.out.println("Done");
     }
 
     public void addMouseEventHandlers(Card card) {
@@ -170,12 +169,13 @@ public class Game extends Pane {
         stockPile.setOnMouseClicked(stockReverseCardsHandler);
         getChildren().add(stockPile);
         Button restartButton = new Button("Restart");
-        restartButton.setTranslateX(1200);
+        restartButton.setTranslateX(100);
         restartButton.setTranslateY(650);
         getChildren().add(restartButton);
         restartButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                Game game = new Game();
+                Klondike game = new Klondike();
+                game.start(Klondike.stage);
             }
         });
 
