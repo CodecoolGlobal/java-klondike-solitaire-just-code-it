@@ -49,7 +49,7 @@ public class Game extends Pane {
             System.out.println("Placed " + card + " to the waste.");
         } else {
             if (e.getButton().equals(MouseButton.PRIMARY)) {
-                if (e.getClickCount() == 2) {
+                if (e.getClickCount() == 2 && !card.isFaceDown()) {
                     Pile validPile = getValidPile(card);
                     if(validPile != null){
                         flipCard(card);
