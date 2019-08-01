@@ -51,7 +51,7 @@ public class Game extends Pane {
             if (e.getButton().equals(MouseButton.PRIMARY)) {
                 if (e.getClickCount() == 2 && !card.isFaceDown()) {
                     Pile validPile = getValidPile(card);
-                    if(validPile != null){
+                    if (validPile != null) {
                         flipCard(card);
                         card.moveToPile(validPile);
                     }
@@ -71,24 +71,26 @@ public class Game extends Pane {
 
     private EventHandler<MouseEvent> onMouseDraggedHandler = e -> {
         Card card = (Card) e.getSource();
-        if (!card.isFaceDown()){
-        Pile activePile = card.getContainingPile();
-        if (activePile.getPileType() == Pile.PileType.STOCK)
-            return;
-        double offsetX = e.getSceneX() - dragStartX;
-        double offsetY = e.getSceneY() - dragStartY;
+        if (!card.isFaceDown()) {
+            Pile activePile = card.getContainingPile();
+            if (activePile.getPileType() == Pile.PileType.STOCK)
+                return;
+            double offsetX = e.getSceneX() - dragStartX;
+            double offsetY = e.getSceneY() - dragStartY;
 
-        draggedCards.clear();
-        draggedCards.add(card);
+            draggedCards.clear();
+            draggedCards.add(card);
 
-        card.getDropShadow().setRadius(20);
-        card.getDropShadow().setOffsetX(10);
-        card.getDropShadow().setOffsetY(10);
+            card.getDropShadow().setRadius(20);
+            card.getDropShadow().setOffsetX(10);
+            card.getDropShadow().setOffsetY(10);
 
-        card.toFront();
-        card.setTranslateX(offsetX);
-        card.setTranslateY(offsetY);
-    }
+            if (card == card.getContainingPile().getTopCard()) {
+                card.toFront();
+            }
+            card.setTranslateX(offsetX);
+            card.setTranslateY(offsetY);
+        }
     };
 
 
@@ -140,8 +142,15 @@ public class Game extends Pane {
 
     public void refillStockFromDiscard() {
         //TODO
+        List<Card> cards = discardPile.getCards();
+        while (!discardPile.getCards().isEmpty()) {
+            Card cardToMove = cards.get(cards.size()-1);
+            cardToMove.moveToPile(stockPile);
+            cardToMove.flip();
+        }
+
         System.out.println("Stock refilled from discard pile.");
-    }
+}
 
     public boolean isMoveValid(Card card, Pile destPile) {
         if (destPile.isEmpty()) {
@@ -163,12 +172,11 @@ public class Game extends Pane {
         return false;
     }
 
-    private Pile getValidPile(Card card){
+    private Pile getValidPile(Card card) {
         for (Pile pile : foundationPiles) {
-            if(pile.isEmpty() && card.getRank().getId() == 1){
+            if (pile.isEmpty() && card.getRank().getId() == 1) {
                 return pile;
-            }
-            else if (pile.getTopCard().getSuit().getId() == card.getSuit().getId() && pile.getTopCard().getRank().getId() == (card.getRank().getId() - 1)) {
+            } else if (pile.getTopCard().getSuit().getId() == card.getSuit().getId() && pile.getTopCard().getRank().getId() == (card.getRank().getId() - 1)) {
                 return pile;
             }
         }
@@ -221,7 +229,8 @@ public class Game extends Pane {
         restartButton.setTranslateY(650);
         getChildren().add(restartButton);
         restartButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 Klondike game = new Klondike();
                 game.start(Klondike.stage);
             }
