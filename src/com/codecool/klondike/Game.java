@@ -96,10 +96,12 @@ public class Game extends Pane {
 
     private void flipCard(Card card) {
         Pile containingPile = card.getContainingPile();
-        Card topCard = containingPile.getCards().get(containingPile.numOfCards() - 2);
-        if (containingPile.getPileType().equals(Pile.PileType.TABLEAU)) {
-            if (topCard.isFaceDown()) {
-                topCard.flip();
+        if (containingPile.numOfCards() >= 2) {
+            Card topCard = containingPile.getCards().get(containingPile.numOfCards() - 2);
+            if (containingPile.getPileType().equals(Pile.PileType.TABLEAU)) {
+                if (topCard.isFaceDown()) {
+                    topCard.flip();
+                }
             }
         }
     }
@@ -144,13 +146,13 @@ public class Game extends Pane {
         //TODO
         List<Card> cards = discardPile.getCards();
         while (!discardPile.getCards().isEmpty()) {
-            Card cardToMove = cards.get(cards.size()-1);
+            Card cardToMove = cards.get(cards.size() - 1);
             cardToMove.moveToPile(stockPile);
             cardToMove.flip();
         }
 
         System.out.println("Stock refilled from discard pile.");
-}
+    }
 
     public boolean isMoveValid(Card card, Pile destPile) {
         if (destPile.isEmpty()) {
